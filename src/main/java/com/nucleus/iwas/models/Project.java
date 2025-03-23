@@ -1,6 +1,8 @@
 package com.nucleus.iwas.models;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
+// import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "projects")
@@ -25,6 +27,15 @@ public class Project {
     @Column(updatable = false)
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    @ManyToMany
+    @JoinTable(
+        name = "employee_projects",
+        joinColumns = @JoinColumn(name = "employee_id"),
+        inverseJoinColumns = @JoinColumn(name = "project_id")
+    )
+    // @JsonManagedReference
+    private List<Employee> assignedEmployees;
 
     public Project()
     {
@@ -88,6 +99,14 @@ public class Project {
     public void setUpdatedAt(LocalDateTime updatedAt) 
     { 
         this.updatedAt = updatedAt; 
+    }
+    public List<Employee> getAssignedEmployees() 
+    {
+        return assignedEmployees; 
+    }  
+    public void setAssignedEmployees(List<Employee> assignedEmployees) 
+    { 
+        this.assignedEmployees = assignedEmployees; 
     }
 }
 

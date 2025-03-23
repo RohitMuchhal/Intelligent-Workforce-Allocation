@@ -1,5 +1,9 @@
 package com.nucleus.iwas.models;
 import jakarta.persistence.*;
+// import com.nucleus.iwas.models.Project;
+// import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
 
 @Entity
 @Table(name = "employees")
@@ -17,6 +21,11 @@ public class Employee {
 
     @Column(nullable = false)
     private String skills;
+
+    @ManyToMany(mappedBy = "assignedEmployees") 
+    // @JsonBackReference 
+    @JsonIgnore
+    private List<Project> assignedProjects;
 
     public Long getId()
     {
@@ -49,5 +58,13 @@ public class Employee {
     public void setSkills(String skills)
     {
         this.skills=skills;
+    }
+    public List<Project> getAssignedProjects() 
+    {
+         return assignedProjects; 
+    }  
+    public void setAssignedProjects(List<Project> assignedProjects) 
+    { 
+        this.assignedProjects = assignedProjects; 
     }
 }
