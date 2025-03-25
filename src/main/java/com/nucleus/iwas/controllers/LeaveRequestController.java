@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/leave")
+@RequestMapping("/leaves")
 
 public class LeaveRequestController {
     @Autowired
