@@ -1,112 +1,116 @@
 package com.nucleus.iwas.models;
+
 import jakarta.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-// import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "projects")
-
 public class Project {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
     private String name;
-
+    
     @Column(nullable = false)
     private String description;
-
+    
     @Column(nullable = false)
     private String requiredSkills;
-
+    
     @Column(nullable = false)
-    private int estimatedDuration;
-
+    private LocalDate startDate;
+    
+    @Column(nullable = false)
+    private LocalDate endDate;
+    
     @Column(updatable = false)
     private LocalDateTime createdAt;
+    
     private LocalDateTime updatedAt;
-
+    
     @ManyToMany
     @JoinTable(
         name = "employee_projects",
         joinColumns = @JoinColumn(name = "employee_id"),
         inverseJoinColumns = @JoinColumn(name = "project_id")
     )
-    // @JsonManagedReference
     private List<Employee> assignedEmployees;
-
-    public Project()
-    {
-        this.createdAt=LocalDateTime.now();
-        this.updatedAt=LocalDateTime.now();
+    
+    public Project() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
-    public Long getId()
-    {
+
+    public Long getId() {
         return id;
     }
-    public void setId(Long id) 
-    { 
+    
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getName() 
-    { 
+    public String getName() { 
         return name; 
     }
-    public void setName(String name) 
-    { 
+    
+    public void setName(String name) { 
         this.name = name; 
     }
-
-    public String getDescription() 
-    { 
+    
+    public String getDescription() { 
         return description; 
     }
-    public void setDescription(String description) 
-    { 
+    
+    public void setDescription(String description) { 
         this.description = description; 
     }
-
-    public String getRequiredSkills() 
-    { 
+    
+    public String getRequiredSkills() { 
         return requiredSkills; 
     }
-    public void setRequiredSkills(String requiredSkills) 
-    { 
+    
+    public void setRequiredSkills(String requiredSkills) { 
         this.requiredSkills = requiredSkills; 
     }
-
-    public int getEstimatedDuration() 
-    { 
-        return estimatedDuration; 
+    
+    public LocalDate getStartDate() {
+        return startDate;
     }
-    public void setEstimatedDuration(int estimatedDuration) 
-    { 
-        this.estimatedDuration = estimatedDuration; 
+    
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
-
-    public LocalDateTime getCreatedAt() 
-    { 
+    
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+    
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+    
+    public LocalDateTime getCreatedAt() { 
         return createdAt; 
     }
-
-    public LocalDateTime getUpdatedAt() 
-    { 
+    
+    public LocalDateTime getUpdatedAt() { 
         return updatedAt; 
     }
-    public void setUpdatedAt(LocalDateTime updatedAt) 
-    { 
+    
+    public void setUpdatedAt(LocalDateTime updatedAt) { 
         this.updatedAt = updatedAt; 
     }
-    public List<Employee> getAssignedEmployees() 
-    {
+    
+    public List<Employee> getAssignedEmployees() { 
         return assignedEmployees; 
-    }  
-    public void setAssignedEmployees(List<Employee> assignedEmployees) 
-    { 
+    }
+    
+    public void setAssignedEmployees(List<Employee> assignedEmployees) { 
         this.assignedEmployees = assignedEmployees; 
     }
 }
-
