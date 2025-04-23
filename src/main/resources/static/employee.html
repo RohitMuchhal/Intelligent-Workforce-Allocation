@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            background-color: #f3f4f6;
+            padding: 20px;
+        }
+        
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .view-section {
+            display: none;
+        }
+
+        .active-section {
+            display: block;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <h2 class="text-xl font-bold mb-4">Employee Portal</h2>
+        <div class="mb-4">
+            <p class="font-semibold" id="employeeName"></p>
+            <p class="text-sm text-gray-600" id="employeeRole"></p>
+        </div>
+        <ul class="space-y-2">
+            <li><button onclick="showView('assignedProjects')" class="w-full text-left px-4 py-2 hover:bg-gray-200 rounded">My Projects</button></li>
+            <li><button onclick="showView('leave')" class="w-full text-left px-4 py-2 hover:bg-gray-200 rounded">Apply for Leave</button></li>
+            <li><button onclick="showView('leaves')" class="w-full text-left px-4 py-2 hover:bg-gray-200 rounded">My Leaves</button></li>
+            <li><button onclick="showView('profile')" class="w-full text-left px-4 py-2 hover:bg-gray-200 rounded">View Profile</button></li>
+            <li><button onclick="logout()" class="w-full text-left px-4 py-2 hover:bg-red-100 text-red-600 rounded">Logout</button></li>
+        </ul>
+    </nav>
+
+    
+    <main class="main-content">
+      
+        <div id="assignedProjects" class="view-section">
+            <h2 class="text-2xl font-bold mb-4">My Assigned Projects</h2>
+            <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        </div>
+
+      
+        <div id="leave" class="view-section">
+            <h2 class="text-2xl font-bold mb-4">Apply for Leave</h2>
+            <form id="leaveForm" class="max-w-md space-y-4">
+                <div>
+                    <label class="block mb-2">Start Date</label>
+                    <input type="date" id="startDate" class="w-full p-2 border rounded">
+                </div>
+                <div>
+                    <label class="block mb-2">End Date</label>
+                    <input type="date" id="endDate" class="w-full p-2 border rounded">
+                </div>
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Submit</button>
+            </form>
+        </div>
+       
+        <div id="leaves" class="view-section">
+            <h2 class="text-2xl font-bold mb-4">My Leave Applications</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="py-2 px-4 border">Start Date</th>
+                            <th class="py-2 px-4 border">End Date</th>
+                            <th class="py-2 px-4 border">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leavesList">
+                      
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="profile" class="view-section">
+            <h2 class="text-2xl font-bold mb-4">My Profile</h2>
+            <div class="max-w-md space-y-4">
+                <div>
+                    <label class="block text-gray-600">Name</label>
+                    <p id="profileName" class="font-semibold"></p>
+                </div>
+                <div>
+                    <label class="block text-gray-600">Email</label>
+                    <p id="profileEmail"></p>
+                </div>
+               
+        <div>
+            <label class="block text-gray-600">Skills</label>
+             <div class="flex items-center gap-2">
+                <p id="profileSkills" class="flex-1"></p>
+                 <button onclick="showAddSkillForm()" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm">Add Skill</button>
+            </div>
+            <div id="skillAddForm" class="hidden mt-2">
+                <select id="skillSelect" class="p-2 border rounded w-64 bg-white">
+                    <option value="">Select a skill...</option>
+                    <option value="HTML">HTML</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="React">React</option>
+                    <option value="Spring Boot">Spring Boot</option>
+                    <option value="AI">AI</option>
+                    <option value="MySQL">MySQL</option>
+                    <option value="CSS">CSS</option>
+                    <option value="Node.js">Node.js</option>
+                    <option value="Python">Python</option>
+                    <option value="Java">Java</option>
+                    <option value="Docker">Docker</option>
+                    <option value="Kubernetes">Kubernetes</option>
+                    <option value="AWS">AWS</option>
+                    <option value="MongoDB">MongoDB</option>
+                    <option value="Git">Git</option>
+                    <option value="Data Structures & Algorithms">Data Structures & Algorithms</option>
+                </select>
+                <button onclick="addSkill()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 ml-2">Add</button>
+                <button onclick="hideAddSkillForm()" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 ml-2">Cancel</button>
+            </div>
+        </div>
+            </div>
+        </div>
+    </main>
+
+
+    <script src="/js/employee.js"></script>
+</body>
+</html>

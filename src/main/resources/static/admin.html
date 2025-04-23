@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .dashboard-section { display: none; padding: 20px; }
+        .active-section { display: block; }
+        .action-btn { cursor: pointer; margin: 0 5px; }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-blue-600 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Admin Portal</h1>
+            <div class="space-x-4">
+                <button onclick="showSection('projects')" class="hover:text-blue-200">Projects</button>
+                 <button onclick="showSection('employees')" class="hover:text-blue-200">Employees</button>
+                <button onclick="showSection('leaves')" class="hover:text-blue-200">Leaves</button>
+                <button onclick="logout()" class="hover:text-red-300">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto p-4">
+       
+         <div id="projects" class="dashboard-section">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">All Projects</h2>
+                <button onclick="toggleProjectForm()" 
+                        class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                    Add New Project
+                </button>
+            </div>
+            <div id="addProjectForm" class="hidden bg-white p-4 rounded-lg shadow mb-4">
+                <h3 class="text-lg font-bold mb-2">Create New Project</h3>
+                <form onsubmit="addProject(event)" class="space-y-3">
+                    <input type="text" id="projectName" placeholder="Project Name" required class="w-full p-2 border rounded">
+                    <textarea id="projectDesc" placeholder="Description" class="w-full p-2 border rounded"></textarea>
+                    <input type="text" id="projectSkills" placeholder="Required Skills (comma separated)" class="w-full p-2 border rounded">
+                    
+                   
+                    <input type="datetime-local" id="projectStartDate" required class="w-full p-2 border rounded">
+                    <input type="datetime-local" id="projectEndDate" required class="w-full p-2 border rounded">
+
+                
+                    <div class="flex gap-2">
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Create</button>
+                        <button type="button" onclick="toggleProjectForm()" class="bg-gray-500 text-white px-4 py-2 rounded">Cancel</button>
+                    </div>
+                </form>                
+            </div>
+            <div id="projectsList"></div>
+        </div>
+       
+<div id="employees" class="dashboard-section">
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold">Employees List</h2>
+        <button onclick="toggleEmployeeForm()" 
+                class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+            Add New Employee
+        </button>
+    </div>
+    
+   
+    <div id="addEmployeeForm" class="hidden bg-white p-4 rounded-lg shadow mb-4">
+        <h3 class="text-lg font-bold mb-2">Register New Employee</h3>
+        <form onsubmit="addEmployee(event)" class="space-y-3">
+            <input type="text" id="employeeName" placeholder="Full Name" required 
+                   class="w-full p-2 border rounded">
+            <input type="email" id="employeeEmail" placeholder="Email" required 
+                   class="w-full p-2 border rounded">
+            <input type="password" id="employeePassword" placeholder="Password" required 
+                   class="w-full p-2 border rounded">
+            
+            <div class="flex gap-2">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
+                    Add Employee
+                </button>
+                <button type="button" onclick="toggleEmployeeForm()" 
+                        class="bg-gray-500 text-white px-4 py-2 rounded">
+                    Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div id="employeesList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+</div>
+
+
+        <div id="leaves" class="dashboard-section">
+            <h2 class="text-2xl font-bold mb-4">Leave Requests</h2>
+            <div id="leavesList"></div>
+        </div>
+    </div>
+
+    <script src="/js/admin.js"></script>
+</body>
+</html> 
+
+
+ 
